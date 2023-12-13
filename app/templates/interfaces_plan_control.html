@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles2.css">
+    <script src="static/script.js" defer></script>
+    <title>Interfaces Plan de Controle</title>
+</head>
+<body>
+    <header>
+        <nav>
+            
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1 style="text-align: center; color: white;"><marquee>Calcul des Capacités des Interfaces S1U et S8 (Trafic Utilisateur)</marquee></h1>
+        <form id="form0" class="traffic-form">
+            <table style="margin-top: 0px;">
+                <tbody>
+                    <tr style="background-color: aqua; font-weight: bolder;">
+                        <td>Taille moyen d'un message (bits)</td>
+                        <td><input type="number" name="TMM_msg" min="0" value="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <!---------------------------------------------- Tableau pour  l'Interface S1-C ---------------------------------->
+        <form id="formS1C" class="traffic-form">
+            <h2 style="text-align: center;">Calcul des Capacités de l'Interface S1-C</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedures</th>
+                        <th>Nombre</th>
+                        <th>Nombre de messages/procèdure via S1-C</th>
+                        <th>Capacité S1-C (Gbits/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(attach)</td>
+                        <td><span id="n_attach_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_attach_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_attach_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(detach)</td>
+                        <td><span id="n_detach_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_detach_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_detach_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(idle to active)</td>
+                        <td><span id="n_idle_active_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_idle_active_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_idle_active_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PDN)</td>
+                        <td><span id="n_pdn_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_pdn_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_pdn_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(bearers active/desactive)</td>
+                        <td><span id="n_bearers_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_bearers_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_bearers_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU_inter_MME)</td>
+                        <td><span id="n_tau_inter_mme_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_tau_inter_mme_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_inter_mme_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU)</td>
+                        <td><span id="n_tau_nombre_s1c"></span></td>
+                        <td><input type="number" name="n_tau_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(X2_HO)</td>
+                        <td><span id="n_x2_ho_s1c"></span></td>
+                        <td><input type="number" name="n_x2_ho_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_x2_ho_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(S1_HO)</td>
+                        <td><span id="n_s1_ho_s1c"></span></td>
+                        <td><input type="number" name="n_s1_ho_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_s1_ho_capcite_s1c"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HO_inter_MME)</td>
+                        <td><span id="n_ho_inter_mme_s1c"></span></td>
+                        <td><input type="number" name="n_ho_inter_mme_msg_s1c" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_ho_inter_mme_capcite_s1c"></span></td>
+                    </tr>
+                    <tr style="background-color: blue;">
+                        <td>Capacité Totale (Gbits/s)</td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="n_capcite_totale_s1c"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTrafficIPC('formS1C')">Calculer</button>
+                <button type="button" onclick="resetFormIPC('formS1C')">Reset</button>
+            </div>
+        </form>
+
+        <!---------------------------------------------- Tableau pour  l'Interfaces S11 ---------------------------------->
+
+        <form id="formS11" class="traffic-form">
+            <h2 style="text-align: center;">Calcul des Capacités de l'Interfaces S11</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedures</th>
+                        <th>Nombre</th>
+                        <th>Nombre de messages/procèdure via S11</th>
+                        <th>Capacité S11 (Gbits/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(attach)</td>
+                        <td><span id="n_attach_nombre_s11"></span></td>
+                        <td><input type="number" name="n_attach_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_attach_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(detach)</td>
+                        <td><span id="n_detach_nombre_s11"></span></td>
+                        <td><input type="number" name="n_detach_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_detach_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(idle to active)</td>
+                        <td><span id="n_idle_active_nombre_s11"></span></td>
+                        <td><input type="number" name="n_idle_active_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_idle_active_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PDN)</td>
+                        <td><span id="n_pdn_nombre_s11"></span></td>
+                        <td><input type="number" name="n_pdn_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_pdn_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(bearers active/desactive)</td>
+                        <td><span id="n_bearers_nombre_s11"></span></td>
+                        <td><input type="number" name="n_bearers_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_bearers_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU_inter_MME)</td>
+                        <td><span id="n_tau_inter_mme_nombre_s11"></span></td>
+                        <td><input type="number" name="n_tau_inter_mme_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_inter_mme_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU)</td>
+                        <td><span id="n_tau_nombre_s11"></span></td>
+                        <td><input type="number" name="n_tau_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(X2_HO)</td>
+                        <td><span id="n_x2_ho_s11"></span></td>
+                        <td><input type="number" name="n_x2_ho_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_x2_ho_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(S1_HO)</td>
+                        <td><span id="n_s1_ho_s11"></span></td>
+                        <td><input type="number" name="n_s1_ho_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_s1_ho_capcite_s11"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HO_inter_MME)</td>
+                        <td><span id="n_ho_inter_mme_s11"></span></td>
+                        <td><input type="number" name="n_ho_inter_mme_msg_s11" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_ho_inter_mme_capcite_s11"></span></td>
+                    </tr>
+                    <tr style="background-color: blue;">
+                        <td>Capacité Totale (Gbits/s)</td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="n_capcite_totale_s11"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTrafficIPC('formS11')">Calculer</button>
+                <button type="button" onclick="resetFormIPC('formS11')">Reset</button>
+            </div>
+        </form>
+        <!---------------------------------------------- Tableau pour  l'Interface S8 ---------------------------------->
+
+        <form id="formS8" class="traffic-form">
+            <h2 style="text-align: center;">Calcul des Capacités de l'Interface S8</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedures</th>
+                        <th>Nombre</th>
+                        <th>Nombre de messages/procèdure via S8</th>
+                        <th>Capacité S8 (Gbits/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(attach)</td>
+                        <td><span id="n_attach_nombre_s8"></span></td>
+                        <td><input type="number" name="n_attach_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_attach_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(detach)</td>
+                        <td><span id="n_detach_nombre_s8"></span></td>
+                        <td><input type="number" name="n_detach_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_detach_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(idle to active)</td>
+                        <td><span id="n_idle_active_nombre_s8"></span></td>
+                        <td><input type="number" name="n_idle_active_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_idle_active_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PDN)</td>
+                        <td><span id="n_pdn_nombre_s8"></span></td>
+                        <td><input type="number" name="n_pdn_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_pdn_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(bearers active/desactive)</td>
+                        <td><span id="n_bearers_nombre_s8"></span></td>
+                        <td><input type="number" name="n_bearers_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_bearers_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU_inter_MME)</td>
+                        <td><span id="n_tau_inter_mme_nombre_s8"></span></td>
+                        <td><input type="number" name="n_tau_inter_mme_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_inter_mme_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU)</td>
+                        <td><span id="n_tau_nombre_s8"></span></td>
+                        <td><input type="number" name="n_tau_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(X2_HO)</td>
+                        <td><span id="n_x2_ho_s8"></span></td>
+                        <td><input type="number" name="n_x2_ho_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_x2_ho_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(S1_HO)</td>
+                        <td><span id="n_s1_ho_s8"></span></td>
+                        <td><input type="number" name="n_s1_ho_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_s1_ho_capcite_s8"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HO_inter_MME)</td>
+                        <td><span id="n_ho_inter_mme_s8"></span></td>
+                        <td><input type="number" name="n_ho_inter_mme_msg_s8" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_ho_inter_mme_capcite_s8"></span></td>
+                    </tr>
+                    <tr style="background-color: blue;">
+                        <td>Capacité Totale (Gbits/s)</td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="n_capcite_totale_s8"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTrafficIPC('formS8')">Calculer</button>
+                <button type="button" onclick="resetFormIPC('formS8')">Reset</button>
+            </div>
+        </form>
+
+        <!---------------------------------------------- Tableau pour  l'Interface S6a ---------------------------------->
+
+        <form id="formS6a" class="traffic-form">
+            <h2 style="text-align: center;">Calcul des Capacités de l'Interface S6a</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedures</th>
+                        <th>Nombre</th>
+                        <th>Nombre de messages/procèdure via S6a</th>
+                        <th>Capacité S6a (Gbits/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(attach)</td>
+                        <td><span id="n_attach_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_attach_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_attach_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(detach)</td>
+                        <td><span id="n_detach_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_detach_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_detach_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(idle to active)</td>
+                        <td><span id="n_idle_active_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_idle_active_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_idle_active_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PDN)</td>
+                        <td><span id="n_pdn_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_pdn_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_pdn_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(bearers active/desactive)</td>
+                        <td><span id="n_bearers_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_bearers_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_bearers_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU_inter_MME)</td>
+                        <td><span id="n_tau_inter_mme_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_tau_inter_mme_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_inter_mme_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU)</td>
+                        <td><span id="n_tau_nombre_s6a"></span></td>
+                        <td><input type="number" name="n_tau_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_tau_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(X2_HO)</td>
+                        <td><span id="n_x2_ho_s6a"></span></td>
+                        <td><input type="number" name="n_x2_ho_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_x2_ho_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(S1_HO)</td>
+                        <td><span id="n_s1_ho_s6a"></span></td>
+                        <td><input type="number" name="n_s1_ho_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_s1_ho_capcite_s6a"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HO_inter_MME)</td>
+                        <td><span id="n_ho_inter_mme_s6a"></span></td>
+                        <td><input type="number" name="n_ho_inter_mme_msg_s6a" step="0.01" min="0" value="0"></td>
+                        <td><span id="n_ho_inter_mme_capcite_s6a"></span></td>
+                    </tr>
+                    <tr style="background-color: blue;">
+                        <td>Capacité Totale (Gbits/s)</td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="n_capcite_totale_s6a"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTrafficIPC('formS6a')">Calculer</button>
+                <button type="button" onclick="resetFormIPC('formS6a')">Reset</button>
+            </div>
+        </form>
+
+        <div class="buttons" style="margin-bottom: 10px;">
+            <button type="button" id="btn_dpc" style="background-color: red;" onclick="redirectToPage('btn_dpc')">Retour</button>
+        </div>
+    </div>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

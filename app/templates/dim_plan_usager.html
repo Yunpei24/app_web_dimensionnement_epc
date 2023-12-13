@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles2.css">
+    <script src="static/script.js" defer></script>
+    <title>Plan Usager</title>
+</head>
+<body>
+    <header style="margin-top: 0px; margin-bottom: 0px; height: 50px;">
+        <nav>
+            <a href="/" class="nav-link">Accueil</a>
+            <a href="/configuration" class="nav-link">Configuration Paramètres Entrés</a>
+            <a href="/trafic_genere" class="nav-link">Calcul des Trafics</a>
+            <a href="/plan_usager" class="nav-link">Dimensionnement Plan Usager</a>
+            <a href="/plan_control" class="nav-link">Dimensionnement Plan Controle</a>
+            <a href="/noeud_LTE" class="nav-link">Dimensionnement Noeuds LTE</a>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1 style="text-align: center; color: white;"><marquee>Dimensionnement Plan Usager</marquee></h1>
+        <form id="form0" class="traffic-form">
+            <table style="margin-top: 0px;">
+                <tbody>
+                    <tr style="background-color: aqua; font-weight: bolder;">
+                        <td>Overhead par paquet (octets)</td>
+                        <td><input type="number" name="overhead_paquet" min="0" value=""></td>
+                    </tr>
+                    <tr style="background-color: aqua; font-weight: bolder;">
+                        <td>Taille Paquet</td>
+                        <td><input type="number" name="taille_paquet" min="0" value=""></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <form id="formU" class="traffic-form">
+            <h2 style="text-align: center;">Pour les interface S1U, S5 et SGI</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Désignations</th>
+                        <th>Valeurs Calculées</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Overhead</td>
+                        <td><span id="overhead_output"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Debit pour les services Internet</td>
+                        <td><span id="debit_service_internet"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Debit pour le service VPN</td>
+                        <td><span id="debit_service_vpn"></span></td>
+                    </tr>
+                    <tr style="background-color: green;">
+                        <td>Débit Total</td>
+                        <td><span id="debit_total"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculatePlanUsager('formU')">Calculer</button>
+                <button type="button" onclick="resetFormUsager('formU')">Reset</button>
+            </div>
+        </form>
+            <div class="buttons" style="margin-bottom: 20px;">
+                <button type="button" id="retour_tt" style="background-color: red;" onclick="redirectToPage('retour_tt')">Retour</button>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 0px; margin-bottom: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

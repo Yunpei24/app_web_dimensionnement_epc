@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles2.css">
+    <script src="static/script.js" defer></script>
+    <title>Dimensionnement du Plan de Controle</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="nav-link">Accueil</a>
+            <a href="/configuration" class="nav-link">Configuration Paramètres Entrés</a>
+            <a href="/trafic_genere" class="nav-link">Calcul des Trafics</a>
+            <a href="/plan_usager" class="nav-link">Dimensionnement Plan Usager</a>
+            <a href="/plan_control" class="nav-link">Dimensionnement Plan Controle</a>
+            <a href="/noeud_LTE" class="nav-link">Dimensionnement Noeuds LTE</a>
+        </nav>
+    </header>
+    <div class="form-container">
+        <form id="form1" class="traffic-form">
+            <h2 style="text-align: center;">Trafic de Signalisation</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Pourcentage Utilisateur actif à l'HC</td>
+                        <td><input type="number" name="PUAHC_pourcentage" step="0.01" min="0" max="1" value=""></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Procédure/Abonné/HC</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(attach)</td>
+                        <td><input type="number" name="n_attach" step="1" min="0" value=""></td>
+                        <td><span id="n_attach_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(detach)</td>
+                        <td><input type="number" name="n_detach" step="1" min="0" value="" required></td>
+                        <td><span id="n_detach_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(idle to active)</td>
+                        <td><input type="number" name="n_idle_active" step="1" min="0" value="" required></td>
+                        <td><span id="n_idle_active_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PDN)</td>
+                        <td><input type="number" name="n_pdn" step="1" min="0" value="" required></td>
+                        <td><span id="n_pdn_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(bearers active/desactive)</td>
+                        <td><input type="number" name="n_bearers" step="1" min="0" value="" required></td>
+                        <td><span id="n_bearers_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU_inter_MME)</td>
+                        <td><input type="number" name="n_tau_inter_mme" step="1" min="0" value="" required></td>
+                        <td><span id="n_tau_inter_mme_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(TAU)</td>
+                        <td><input type="number" name="n_tau" step="1" min="0" value="" required></td>
+                        <td><span id="n_tau_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(X2_HO)</td>
+                        <td><input type="number" name="n_x2_ho" step="1" min="0" value="" required></td>
+                        <td><span id="n_x2_ho_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(S1_HO)</td>
+                        <td><input type="number" name="n_s1_ho" step="1" min="0" value="" required></td>
+                        <td><span id="n_s1_ho_nombre"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HO_inter_MME)</td>
+                        <td><input type="number" name="n_ho_inter_mme" step="1" min="0" value="" required></td>
+                        <td><span id="n_ho_inter_mme_nombre"></span></td>
+                    </tr>
+                    <tr style="background-color: rgb(69, 128, 238);">
+                        <td>N(procédures)</td>
+                        <td></td>
+                        <td><span id="nombre_procedure"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTrafficSig('form1')">Calculer</button>
+                <button type="button" onclick="resetSigForm('form1')">Reset</button>
+            </div>
+        </form>
+        <div class="buttons" style="margin-bottom: 10px;">
+            <button type="button" id="btn_ipc" onclick="redirectToPage('btn_ipc')">Interfaces Plan de Controle</button>
+        </div>
+    </div>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

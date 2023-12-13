@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles2.css">
+    <script src="static/script.js" defer></script>
+    <title>Calcul des Volumes de Trafics Internet et VPN</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="nav-link">Accueil</a>
+            <a href="/configuration" class="nav-link">Configuration Paramètres Entrés</a>
+            <a href="/trafic_genere" class="nav-link">Calcul des Trafics</a>
+            <a href="/plan_usager" class="nav-link">Dimensionnement Plan Usager</a>
+            <a href="/plan_control" class="nav-link">Dimensionnement Plan Controle</a>
+            <a href="/noeud_LTE" class="nav-link">Dimensionnement Noeuds LTE</a>
+        </nav>
+    </header>
+    <div class="form-container">
+        <form id="form1" class="traffic-form">
+            <h2 style="text-align: center;">Trafic Internet Généré par Smartphone en UL/DL et DL</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Types de Services</th>
+                        <th>Nombre Sessions</th>
+                        <th>Taille Session (Mb)</th>
+                        <th>Pourcentage DL</th>
+                        <th>Volume trafic à l'HC en UL/DL (Mb)</th>
+                        <th>Volume trafic à l'HC en DL (Mb)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Navigation Web</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="number" name="email_sessions" step="1" min="0" value="" required></td>
+                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value="" required></td>
+                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" value="" required></td>
+                        <td><span id="email_volumeULDL"></span></td>
+                        <td><span id="email_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Streaming Video</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>VPN</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Gaming</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Volume Total du Trafic Internet</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="totalVolumeULDL"></span></td>
+                        <td><span id="totalVolumeDL"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTraffic('form1')">Calculer</button>
+                <button type="button" onclick="resetForm('form1')">Reset</button>
+            </div>
+        </form>
+
+        <form id="form2" class="traffic-form">
+            <h2 style="text-align: center;">Trafic Internet & VPN Généré par Data Card en UL/DL et DL</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Types de Services</th>
+                        <th>Nombre Sessions</th>
+                        <th>Taille Session (Mb)</th>
+                        <th>Pourcentage DL</th>
+                        <th>Volume trafic à l'HC en UL/DL (Mb)</th>
+                        <th>Volume trafic à l'HC en DL (Mb)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Navigation Web</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="number" name="email_sessions" step="1" min="0" value="" required></td>
+                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value="" required></td>
+                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" value="" required></td>
+                        <td><span id="email_volumeULDL"></span></td>
+                        <td><span id="email_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Streaming Video</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>VPN</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Gaming</td>
+                        <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><span id="navigationWeb_volumeULDL"></span></td>
+                        <td><span id="navigationWeb_volumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Volume Total du Trafic Internet</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="totalVolumeULDL"></span></td>
+                        <td><span id="totalVolumeDL"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Volume Total du Trafic VPN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span id="totalVolumeULDL"></span></td>
+                        <td><span id="totalVolumeDL"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateTraffic('form2')">Calculer</button>
+                <button type="button" onclick="resetForm('form2')">Reset</button>
+            </div>
+        </form>
+        <div class="buttons" style="margin-bottom: 10px;">
+            <button type="button" id="btn_tg" onclick="redirectToPage('btn_tg')">Trafics Total</button>
+        </div>
+    </div>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

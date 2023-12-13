@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles2.css">
+    <script src="static/script.js" defer></script>
+    <title>Dimensionnement Noeuds LTE</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="nav-link">Accueil</a>
+            <a href="/configuration" class="nav-link">Configuration Paramètres Entrés</a>
+            <a href="/trafic_genere" class="nav-link">Calcul des Trafics</a>
+            <a href="/plan_usager" class="nav-link">Dimensionnement Plan Usager</a>
+            <a href="/plan_control" class="nav-link">Dimensionnement Plan Controle</a>
+            <a href="/noeud_LTE" class="nav-link">Dimensionnement Noeuds LTE</a>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1 style="text-align: center; color: white;"><marquee>Dimensionnement Noeuds LTE</marquee></h1>
+        <form id="formN" class="traffic-form">
+            <h2 style="text-align: center;">Trafic Internet Généré par Smartphone en UL/DL et DL</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Composants</th>
+                        <th>Metriques</th>
+                        <th>Unités</th>
+                        <th>Valeurs</th>
+                        <th>Pourcentages</th>
+                        <th>Capacité d'exploitation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">MME</td>
+                        <td><span id="mme_met_1">Simultaneous Attached Users(SAU)</span></td>
+                        <td><span id="mme_unit_1">Abonnés</span></td>
+                        <td><input type="number" name="mme_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="mme_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="mme_capacite_1"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="mme_met_2">Transitions idle/active par seconde</span></td>
+                        <td><span id="mme_unit_2">transitions/seconde</span></td>
+                        <td><input type="number" name="mme_valeur_2" min="0" value="0"></td>
+                        <td><input type="number" name="mme_pourcentage_2" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="mme_capacite_2"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="mme_met_3">Nbre total transactions par seconde</span></td>
+                        <td><span id="mme_unit_3">transactions/seconde</span></td>
+                        <td><input type="number" name="mme_valeur_3" min="0" value="0"></td>
+                        <td><input type="number" name="mme_pourcentage_3" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="mme_capacite_3"></span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">SGW</td>
+                        <td><span id="sgw_met_1">Nombre de bearers</span></td>
+                        <td><span id="sgw_unit_1">Bearers</span></td>
+                        <td><input type="number" name="sgw_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="sgw_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="sgw_capacite_1"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="sgw_met_2">Capacité traitement de données</span></td>
+                        <td><span id="sgw_unit_2">Gbits</span></td>
+                        <td><input type="number" name="sgw_valeur_2" min="0" value="0"></td>
+                        <td><input type="number" name="sgw_pourcentage_2" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="sgw_capacite_2"></span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">PGW</td>
+                        <td><span id="pgw_met_1">Nombre de bearers</span></td>
+                        <td><span id="pgw_unit_1">Bearers</span></td>
+                        <td><input type="number" name="pgw_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="pgw_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="pgw_capacite_1"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="pgw_met_2">Capacité traitement de données</span></td>
+                        <td><span id="pgw_unit_2">Gbits</span></td>
+                        <td><input type="number" name="pgw_valeur_2" min="0" value="0"></td>
+                        <td><input type="number" name="pgw_pourcentage_2" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="pgw_capacite_2"></span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">SGW/PGW Combiné</td>
+                        <td><span id="sgwpgw_met_1">Nombre de bearers</span></td>
+                        <td><span id="sgwpgw_unit_1">Bearers</span></td>
+                        <td><input type="number" name="sgwpgw_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="sgwpgw_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="sgwpgw_capacite_1"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="sgwpgw_met_2">Capacité traitement de données</span></td>
+                        <td><span id="sgwpgw_unit_2">Gbits</span></td>
+                        <td><input type="number" name="sgwpgw_valeur_2" min="0" value="0"></td>
+                        <td><input type="number" name="sgwpgw_pourcentage_2" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="sgwpgw_capacite_2"></span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">HSS</td>
+                        <td><span id="hss_met_1">Nombre d'abonnés supportés</span></td>
+                        <td><span id="hss_unit_1">Abonnés</span></td>
+                        <td><input type="number" name="hss_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="hss_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="hss_capacite_1"></span></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">PCRF</td>
+                        <td><span id="pcrf_met_1">Nombre de transactions par seconde</span></td>
+                        <td><span id="pcrf_unit_1">transactions/seconde</span></td>
+                        <td><input type="number" name="pcrf_valeur_1" min="0" value="0"></td>
+                        <td><input type="number" name="pcrf_pourcentage_1" step="0.01" min="0" max="1" value="0"></td>
+                        <td><span id="pcrf_capacite_1"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateCapaciteNoeud('formN')">Calculer</button>
+                <button type="button" onclick="resetFormC('formN')">Reset</button>
+            </div>
+        </form>
+        <form id="formNR" class="traffic-form">
+            <h2 style="text-align: center;">Nombre de nœuds requis</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Types de Noeuds EPC</th>
+                        <th>Nombre Requis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>N(MME-SAU)</td>
+                        <td><span id="n_mme_sau"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(MME-IDLE/ACTIVE)</td>
+                        <td><span id="n_mme_idle_active"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(MME-Trans/Second)</td>
+                        <td><span id="n_mme_trans_sec"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW-bearers)</td>
+                        <td><span id="n_sgw_bearers"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW-BH-DL-Internet)</td>
+                        <td><span id="n_sgw_bh_dl_int"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW-BH-DL-VPN)</td>
+                        <td><span id="n_sgw_bh_dl_vpn"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PGW-bearers)</td>
+                        <td><span id="n_pgw_bearers"></span></td>
+                    </tr>
+                    <!------------------------------------>
+                    <tr>
+                        <td>N(PGW-BH-DL-Internet)</td>
+                        <td><span id="n_pgw_bh_dl_int"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PGW-BH-DL-VPN)</td>
+                        <td><span id="n_pgw_bh_dl_vpn"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW/PGW-bearers)</td>
+                        <td><span id="n_sgw_pgw_bearers"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW/PGW-BH-DL-Internet)</td>
+                        <td><span id="n_sgw_pgw_bh_dl_int"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(SGW/PGW-BH-DL-VPN)</td>
+                        <td><span id="n_sgw_pgw_bh_dl_vpn"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(HSS)</td>
+                        <td><span id="n_hss"></span></td>
+                    </tr>
+                    <tr>
+                        <td>N(PCRF)</td>
+                        <td><span id="n_pcrf"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons">
+                <button type="button" onclick="calculateNoeudRequis()">Afficher</button>
+                <button type="button" onclick="resetFormNoeudRequis('formNR')">Reset</button>
+            </div>
+        </form>
+    </div>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

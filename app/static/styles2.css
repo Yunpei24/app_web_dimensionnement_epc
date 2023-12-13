@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/fd2.jpg);
+    margin-bottom: 0px;
+}
+
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.traffic-form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin-top: 40px;
+    max-width: 1500px; /* Limitez la largeur du formulaire pour une meilleure lisibilité */
+}
+
+
+header {
+    background-color: #723eec;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+nav {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    padding: 5px 10px; /* Espacement intérieur à gauche et à droite */
+    border: 1px solid white; /* Bordure blanche */
+    border-radius: 2px; /* Coins arrondis */
+    transition: background-color 0.3s; /* Transition de couleur de fond pour un effet de survol */
+}
+
+.nav-link:hover {
+    background-color: #79d4f3; /* Couleur de fond au survol */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between; /* Espacement égal entre les boutons */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Media Query pour les petits écrans */
+@media only screen and (max-width: 600px) {
+    .form-container {
+        align-items: center; /* Centrer les formulaires sur les petits écrans */
+    }
+
+    .traffic-form {
+        width: 80%; /* Réduire la largeur du formulaire sur les petits écrans */
+    }
+}

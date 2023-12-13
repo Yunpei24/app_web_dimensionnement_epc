@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="static/script.js" defer></script>
+    <title>Configuration Paramètres Entrés</title>
+</head>
+<body >
+    <header>
+        <nav>
+            <a href="/" class="nav-link">Accueil</a>
+            <a href="/configuration" class="nav-link">Configuration Paramètres Entrés</a>
+            <a href="/trafic_genere" class="nav-link">Calcul des Trafics</a>
+            <a href="/plan_usager" class="nav-link">Dimensionnement Plan Usager</a>
+            <a href="/plan_control" class="nav-link">Dimensionnement Plan Controle</a>
+            <a href="/noeud_LTE" class="nav-link">Dimensionnement Noeuds LTE</a>
+        </nav>
+    </header>
+    <h2>Veuillez Entrer les Paramètres Globaux</h2>
+    <form id="myForm" onsubmit="submitForm(event)">
+
+        <label for="nombreAbonne">Nombre Abonné:</label>
+        <input type="number" id="nombreAbonne" required>
+
+        <label for="pourcentageDataCard">Pourcentage de DataCard:</label>
+        <input type="number" id="pourcentageDataCard" step="0.01" required>
+
+        <label for="pourcentageSmartphone">Pourcentage de Smartphone:</label>
+        <input type="number" id="pourcentageSmartphone" step="0.01" required>
+
+        <label for="pourcentageAbonneActif">Pourcentage d'abonné actif avec accès internet:</label>
+        <input type="number" id="pourcentageAbonneActif" step="0.01" required>
+
+        <label for="pourcentageAbonneVPN">Pourcentage d'abonné utilisant VPN:</label>
+        <input type="number" id="pourcentageAbonneVPN" step="0.01" required>
+
+        <p class="error-message" id="error-message"></p>
+
+        <button type="submit">Soumettre</button>
+    </form>
+    <div style="background-color: #723eec; width: 100%; text-align: center; margin-top: 30px; margin-bottom: 0px;">
+        <footer class="footer bg-dark text-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size: 18px; font-weight: bold; color: whitesmoke;">Développé par Joshua NIKIEMA</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
