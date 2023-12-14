@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="static/styles2.css">
     <script src="static/script.js" defer></script>
     <title>Calcul des Volumes de Trafics Internet et VPN</title>
@@ -37,15 +39,15 @@
                         <td>Navigation Web</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="number" name="email_sessions" step="1" min="0" value="" required></td>
-                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value="" required></td>
-                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" value="" required></td>
+                        <td><input type="number" name="email_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" value="" onblur="validateInput(this)"></td>
                         <td><span id="email_volumeULDL"></span></td>
                         <td><span id="email_volumeDL"></span></td>
                     </tr>
@@ -53,7 +55,7 @@
                         <td>Streaming Video</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
@@ -61,7 +63,7 @@
                         <td>VPN</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
@@ -69,7 +71,7 @@
                         <td>Gaming</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
@@ -107,15 +109,15 @@
                         <td>Navigation Web</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="number" name="email_sessions" step="1" min="0" value="" required></td>
-                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value="" required></td>
-                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" value="" required></td>
+                        <td><input type="number" name="email_sessions" step="1" min="0" value=""></td>
+                        <td><input type="number" name="email_tailleSession" step="0.01" min="0" value=""></td>
+                        <td><input type="number" name="email_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="email_volumeULDL"></span></td>
                         <td><span id="email_volumeDL"></span></td>
                     </tr>
@@ -123,7 +125,7 @@
                         <td>Streaming Video</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
@@ -131,7 +133,7 @@
                         <td>VPN</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>
@@ -139,7 +141,7 @@
                         <td>Gaming</td>
                         <td><input type="number" name="navigationWeb_sessions" step="1" min="0" value=""></td>
                         <td><input type="number" name="navigationWeb_tailleSession" step="0.01" min="0" value=""></td>
-                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="navigationWeb_pourcentageDL" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="navigationWeb_volumeULDL"></span></td>
                         <td><span id="navigationWeb_volumeDL"></span></td>
                     </tr>

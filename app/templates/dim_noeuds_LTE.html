@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="static/styles2.css">
     <script src="static/script.js" defer></script>
     <title>Dimensionnement Noeuds LTE</title>
@@ -39,21 +41,21 @@
                         <td><span id="mme_met_1">Simultaneous Attached Users(SAU)</span></td>
                         <td><span id="mme_unit_1">Abonnés</span></td>
                         <td><input type="number" name="mme_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="mme_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="mme_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="mme_capacite_1"></span></td>
                     </tr>
                     <tr>
                         <td><span id="mme_met_2">Transitions idle/active par seconde</span></td>
                         <td><span id="mme_unit_2">transitions/seconde</span></td>
                         <td><input type="number" name="mme_valeur_2" min="0" value=""></td>
-                        <td><input type="number" name="mme_pourcentage_2" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="mme_pourcentage_2" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="mme_capacite_2"></span></td>
                     </tr>
                     <tr>
                         <td><span id="mme_met_3">Nbre total transactions par seconde</span></td>
                         <td><span id="mme_unit_3">transactions/seconde</span></td>
                         <td><input type="number" name="mme_valeur_3" min="0" value=""></td>
-                        <td><input type="number" name="mme_pourcentage_3" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="mme_pourcentage_3" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="mme_capacite_3"></span></td>
                     </tr>
                     <tr>
@@ -61,14 +63,14 @@
                         <td><span id="sgw_met_1">Nombre de bearers</span></td>
                         <td><span id="sgw_unit_1">Bearers</span></td>
                         <td><input type="number" name="sgw_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="sgw_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="sgw_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="sgw_capacite_1"></span></td>
                     </tr>
                     <tr>
                         <td><span id="sgw_met_2">Capacité traitement de données</span></td>
                         <td><span id="sgw_unit_2">Gbits</span></td>
                         <td><input type="number" name="sgw_valeur_2" min="0" value=""></td>
-                        <td><input type="number" name="sgw_pourcentage_2" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="sgw_pourcentage_2" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="sgw_capacite_2"></span></td>
                     </tr>
                     <tr>
@@ -76,14 +78,14 @@
                         <td><span id="pgw_met_1">Nombre de bearers</span></td>
                         <td><span id="pgw_unit_1">Bearers</span></td>
                         <td><input type="number" name="pgw_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="pgw_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="pgw_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="pgw_capacite_1"></span></td>
                     </tr>
                     <tr>
                         <td><span id="pgw_met_2">Capacité traitement de données</span></td>
                         <td><span id="pgw_unit_2">Gbits</span></td>
                         <td><input type="number" name="pgw_valeur_2" min="0" value=""></td>
-                        <td><input type="number" name="pgw_pourcentage_2" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="pgw_pourcentage_2" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="pgw_capacite_2"></span></td>
                     </tr>
                     <tr>
@@ -91,14 +93,14 @@
                         <td><span id="sgwpgw_met_1">Nombre de bearers</span></td>
                         <td><span id="sgwpgw_unit_1">Bearers</span></td>
                         <td><input type="number" name="sgwpgw_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="sgwpgw_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="sgwpgw_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="sgwpgw_capacite_1"></span></td>
                     </tr>
                     <tr>
                         <td><span id="sgwpgw_met_2">Capacité traitement de données</span></td>
                         <td><span id="sgwpgw_unit_2">Gbits</span></td>
                         <td><input type="number" name="sgwpgw_valeur_2" min="0" value=""></td>
-                        <td><input type="number" name="sgwpgw_pourcentage_2" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="sgwpgw_pourcentage_2" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="sgwpgw_capacite_2"></span></td>
                     </tr>
                     <tr>
@@ -106,7 +108,7 @@
                         <td><span id="hss_met_1">Nombre d'abonnés supportés</span></td>
                         <td><span id="hss_unit_1">Abonnés</span></td>
                         <td><input type="number" name="hss_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="hss_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="hss_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="hss_capacite_1"></span></td>
                     </tr>
                     <tr>
@@ -114,7 +116,7 @@
                         <td><span id="pcrf_met_1">Nombre de transactions par seconde</span></td>
                         <td><span id="pcrf_unit_1">transactions/seconde</span></td>
                         <td><input type="number" name="pcrf_valeur_1" min="0" value=""></td>
-                        <td><input type="number" name="pcrf_pourcentage_1" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="pcrf_pourcentage_1" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                         <td><span id="pcrf_capacite_1"></span></td>
                     </tr>
                 </tbody>

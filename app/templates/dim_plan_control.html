@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="static/styles2.css">
     <script src="static/script.js" defer></script>
     <title>Dimensionnement du Plan de Controle</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header>
@@ -26,10 +28,11 @@
                 <tbody>
                     <tr>
                         <td>Pourcentage Utilisateur actif à l'HC</td>
-                        <td><input type="number" name="PUAHC_pourcentage" step="0.01" min="0" max="1" value=""></td>
+                        <td><input type="number" name="PUAHC_pourcentage" step="0.01" min="0" max="1" onblur="validateInput(this)" value=""></td>
                     </tr>
                 </tbody>
             </table>
+            
             <table>
                 <thead>
                     <tr>

@@ -41,6 +41,24 @@ function redirectToPage(IdBtn) {
    }
 }
 
+function validateInput(input) {
+    var pourcentageValue = parseFloat(input.value);
+
+    if (pourcentageValue >= 0 && pourcentageValue <= 1) {
+        // La valeur est valide, ne rien faire
+    } else {
+        // Afficher une pop-up avec le message d'erreur en rouge
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Veuillez saisir une valeur comprise entre 0 et 1.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        });
+        input.value = ''; // Effacer la valeur incorrecte
+    }
+}
+
 function validateForm() {
     var nombreAbonne = parseFloat(document.getElementById('nombreAbonne').value);
     var pourcentageDataCard = parseFloat(document.getElementById('pourcentageDataCard').value);
@@ -363,8 +381,10 @@ async function calculateTrafficIPC(formId) {
     const nombresArrayJSON = localStorage.getItem('nombresProcessArray');
     // Convertir la chaîne JSON en tableau
     const nombresProcessArray = JSON.parse(nombresArrayJSON);
+    var nameTab = ['attach', 'detach', 'idle_active', 'pdn', 'bearers', 'tau_inter_mme', 'tau', 'x2_ho', 's1_ho', 'ho_inter_mme']
 
     if (formId === 'formS1C') {
+        var capaciteTotal = 0;
         // Vérifier si nombresProcessArray est défini
         if (typeof nombresProcessArray !== 'undefined' && nombresProcessArray.length > 0) {
             // Récupérer les éléments du formulaire
@@ -373,33 +393,34 @@ async function calculateTrafficIPC(formId) {
             // Parcourir les lignes du tableau
             for (var i = 0; i < nombresProcessArray.length; i++) {
                 // Récupérer la cellule de la colonne 'Nombre'
-                var cellNombre = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_nombre_s1c`);
+                var cellNombre = form.querySelector(`#n_${nameTab[i]}_nombre_s1c`);
 
                 // Récupérer la cellule de la colonne 'Nombre de messages/procèdure via S1-C'
-                var cellNombreMessages = form.querySelector(`input[name="${nombresProcessArray[i].procedure.toLowerCase()}_msg_s1c"]`);
+                var cellNombreMessages = form.querySelector(`input[name="n_${nameTab[i]}_msg_s1c"]`);
 
                 // Récupérer la cellule de la colonne 'Capacité S1-C (Gbits/s)'
-                var cellCapacite = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_capcite_s1c`);
+                var cellCapacite = form.querySelector(`#n_${nameTab[i]}_capcite_s1c`);
 
                 // Calculer le nombre en fonction de la procédure et mettre à jour la cellule 'Nombre'
-                var nombre = nombresProcessArray[i].nombre;
+                var nombre = nombresProcessArray[i];
                 cellNombre.textContent = nombre;
 
                 // Récupérer la valeur du tableau multipliée par la valeur saisie au niveau de 'Taille moyen d'un message (bits)'
                 // et par la case correspondante de la colonne 'Nombre de messages/procèdure via S1-C'
-                var capacite = nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value);
+                var capacite = (nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value)) / (3600 * 1000000);
                 cellCapacite.textContent = capacite.toFixed(5); // Formater le résultat avec 2 décimales
+                capaciteTotal += capacite;
             }
 
             // Mettre à jour la dernière cellule de la colonne 'Capacité Totale (Gbits/s)'
             var cellCapaciteTotale = form.querySelector('#n_capcite_totale_s1c');
-            var sumCapacites = nombresProcessArray.reduce((sum, item) => sum + item.nombre * tailleMoyenneMessage * parseFloat(form.querySelector(`input[name="${item.procedure.toLowerCase()}_msg_s1c"]`).value), 0);
-            cellCapaciteTotale.textContent = sumCapacites.toFixed(5); // Formater le résultat avec 2 décimales
+            cellCapaciteTotale.textContent = capaciteTotal.toFixed(5); // Formater le résultat avec 2 décimales
         }
         else {
             console.error('nombresProcessArray is not defined or empty.');
         }
     } else if (formId === 'formS11') {
+        var capaciteTotal = 0;
         // Vérifier si nombresProcessArray est défini
         if (typeof nombresProcessArray !== 'undefined' && nombresProcessArray.length > 0) {
             // Récupérer les éléments du formulaire
@@ -408,33 +429,35 @@ async function calculateTrafficIPC(formId) {
             // Parcourir les lignes du tableau
             for (var i = 0; i < nombresProcessArray.length; i++) {
                 // Récupérer la cellule de la colonne 'Nombre'
-                var cellNombre = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_nombre_s11`);
+                var cellNombre = form.querySelector(`#n_${nameTab[i]}_nombre_s11`);
 
                 // Récupérer la cellule de la colonne 'Nombre de messages/procèdure via S11'
-                var cellNombreMessages = form.querySelector(`input[name="${nombresProcessArray[i].procedure.toLowerCase()}_msg_s11"]`);
+                var cellNombreMessages = form.querySelector(`input[name="n_${nameTab[i]}_msg_s11"]`);
 
                 // Récupérer la cellule de la colonne 'Capacité S11 (Gbits/s)'
-                var cellCapacite = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_capcite_s11`);
+                var cellCapacite = form.querySelector(`#n_${nameTab[i]}_capcite_s11`);
 
                 // Calculer le nombre en fonction de la procédure et mettre à jour la cellule 'Nombre'
-                var nombre = nombresProcessArray[i].nombre;
+                var nombre = nombresProcessArray[i];
+                
                 cellNombre.textContent = nombre;
 
                 // Récupérer la valeur du tableau multipliée par la valeur saisie au niveau de 'Taille moyen d'un message (bits)'
                 // et par la case correspondante de la colonne 'Nombre de messages/procèdure via S11'
-                var capacite = nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value);
+                var capacite = (nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value)) / (3600 * 1000000);
                 cellCapacite.textContent = capacite.toFixed(5); // Formater le résultat avec 5 décimales
+                capaciteTotal += capacite;
             }
 
             // Mettre à jour la dernière cellule de la colonne 'Capacité Totale (Gbits/s)'
             var cellCapaciteTotale = form.querySelector('#n_capcite_totale_s11');
-            var sumCapacites = nombresProcessArray.reduce((sum, item) => sum + item.nombre * tailleMoyenneMessage * parseFloat(form.querySelector(`input[name="${item.procedure.toLowerCase()}_msg_s11"]`).value), 0);
-            cellCapaciteTotale.textContent = sumCapacites.toFixed(5); // Formater le résultat avec 5 décimales
+            cellCapaciteTotale.textContent = capaciteTotal.toFixed(5); // Formater le résultat avec 5 décimales
         }
         else {
             console.error('nombresProcessArray is not defined or empty.');
         }
     }else if(formId === 'formS8'){
+        var capaciteTotal = 0;
         // Vérifier si nombresProcessArray est défini
         if (typeof nombresProcessArray !== 'undefined' && nombresProcessArray.length > 0) {
             // Récupérer les éléments du formulaire
@@ -443,33 +466,34 @@ async function calculateTrafficIPC(formId) {
             // Parcourir les lignes du tableau
             for (var i = 0; i < nombresProcessArray.length; i++) {
                 // Récupérer la cellule de la colonne 'Nombre'
-                var cellNombre = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_nombre_s8`);
+                var cellNombre = form.querySelector(`#n_${nameTab[i]}_nombre_s8`);
 
                 // Récupérer la cellule de la colonne 'Nombre de messages/procèdure via S8'
-                var cellNombreMessages = form.querySelector(`input[name="${nombresProcessArray[i].procedure.toLowerCase()}_msg_s8"]`);
+                var cellNombreMessages = form.querySelector(`input[name="n_${nameTab[i]}_msg_s8"]`);
 
                 // Récupérer la cellule de la colonne 'Capacité S8 (Gbits/s)'
-                var cellCapacite = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_capcite_s8`);
+                var cellCapacite = form.querySelector(`#n_${nameTab[i]}_capcite_s8`);
 
                 // Calculer le nombre en fonction de la procédure et mettre à jour la cellule 'Nombre'
-                var nombre = nombresProcessArray[i].nombre;
+                var nombre = nombresProcessArray[i];
                 cellNombre.textContent = nombre;
 
                 // Récupérer la valeur du tableau multipliée par la valeur saisie au niveau de 'Taille moyen d'un message (bits)'
                 // et par la case correspondante de la colonne 'Nombre de messages/procèdure via S8'
-                var capacite = nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value);
+                var capacite = (nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value)) / (3600 * 1000000);
                 cellCapacite.textContent = capacite.toFixed(5); // Formater le résultat avec 5 décimales
+                capaciteTotal += capacite;
             }
 
             // Mettre à jour la dernière cellule de la colonne 'Capacité Totale (Gbits/s)'
             var cellCapaciteTotale = form.querySelector('#n_capcite_totale_s8');
-            var sumCapacites = nombresProcessArray.reduce((sum, item) => sum + item.nombre * tailleMoyenneMessage * parseFloat(form.querySelector(`input[name="${item.procedure.toLowerCase()}_msg_s8"]`).value), 0);
-            cellCapaciteTotale.textContent = sumCapacites.toFixed(5); // Formater le résultat avec 5 décimales
+            cellCapaciteTotale.textContent = capaciteTotal.toFixed(5); // Formater le résultat avec 5 décimales
         }
         else {
             console.error('nombresProcessArray is not defined or empty.');
         }
     } else if (formId === 'formS6a') {
+        var capaciteTotal = 0;
         // Vérifier si nombresProcessArray est défini
         if (typeof nombresProcessArray !== 'undefined' && nombresProcessArray.length > 0) {
             // Récupérer les éléments du formulaire
@@ -478,28 +502,28 @@ async function calculateTrafficIPC(formId) {
             // Parcourir les lignes du tableau
             for (var i = 0; i < nombresProcessArray.length; i++) {
                 // Récupérer la cellule de la colonne 'Nombre'
-                var cellNombre = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_nombre_s6a`);
+                var cellNombre = form.querySelector(`#n_${nameTab[i]}_nombre_s6a`);
 
                 // Récupérer la cellule de la colonne 'Nombre de messages/procèdure via S6a'
-                var cellNombreMessages = form.querySelector(`input[name="${nombresProcessArray[i].procedure.toLowerCase()}_msg_s6a"]`);
+                var cellNombreMessages = form.querySelector(`input[name="n_${nameTab[i]}_msg_s6a"]`);
 
                 // Récupérer la cellule de la colonne 'Capacité S6a (Gbits/s)'
-                var cellCapacite = form.querySelector(`#n_${nombresProcessArray[i].procedure.toLowerCase()}_capcite_s6a`);
+                var cellCapacite = form.querySelector(`#n_${nameTab[i]}_capcite_s6a`);
 
                 // Calculer le nombre en fonction de la procédure et mettre à jour la cellule 'Nombre'
-                var nombre = nombresProcessArray[i].nombre;
+                var nombre = nombresProcessArray[i];
                 cellNombre.textContent = nombre;
 
                 // Récupérer la valeur du tableau multipliée par la valeur saisie au niveau de 'Taille moyen d'un message (bits)'
                 // et par la case correspondante de la colonne 'Nombre de messages/procèdure via S6a'
-                var capacite = nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value);
+                var capacite = (nombre * tailleMoyenneMessage * parseFloat(cellNombreMessages.value)) / (3600 * 1000000);
                 cellCapacite.textContent = capacite.toFixed(5); // Formater le résultat avec 5 décimales
+                capaciteTotal += capacite;
             }
 
             // Mettre à jour la dernière cellule de la colonne 'Capacité Totale (Gbits/s)'
             var cellCapaciteTotale = form.querySelector('#n_capcite_totale_s6a');
-            var sumCapacites = nombresProcessArray.reduce((sum, item) => sum + item.nombre * tailleMoyenneMessage * parseFloat(form.querySelector(`input[name="${item.procedure.toLowerCase()}_msg_s6a"]`).value), 0);
-            cellCapaciteTotale.textContent = sumCapacites.toFixed(5); // Formater le résultat avec 5 décimales
+            cellCapaciteTotale.textContent = capaciteTotal.toFixed(5); // Formater le résultat avec 5 décimales
         }
         else {
             console.error('nombresProcessArray is not defined or empty.');
